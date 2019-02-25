@@ -1,0 +1,22 @@
+﻿@model Vidly.Models.Customer
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Customer Details</h2>
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.ActionLink("Return to List", "Index", null, new {@class = "btn btn-primary" })

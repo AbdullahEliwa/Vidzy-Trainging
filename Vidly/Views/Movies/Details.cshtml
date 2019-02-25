@@ -1,0 +1,22 @@
+﻿@model Vidly.Models.Movie
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Movie Details</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Movie Id</th>
+            <th>Movie Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Name</td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.ActionLink("Back to Movie List", "Index", null, new { @class = "btn btn-primary" })
