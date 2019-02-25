@@ -9,12 +9,21 @@
         <tr>
             <th>Movie Id</th>
             <th>Movie Name</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Date Added</th>
+            <th>Number in stock</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@Model.Id</td>
             <td>@Model.Name</td>
+            <td>@Model.Genre.Name</td>
+            <td>@Model.ReleaseDate.ToShortDateString()</td>
+            <td>@Model.DateAdded</td>
+            <td>@Model.NumberInStock</td>
+
         </tr>
     </tbody>
 </table>
