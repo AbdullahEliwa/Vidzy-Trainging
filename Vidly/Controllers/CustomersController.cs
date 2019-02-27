@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using System.Data.Entity;
+using Vidly.ViewModels;
+using System.Data.Entity.Validation;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        #region Database connection object
         ApplicationDbContext _context;
         public CustomersController()
         {
@@ -19,7 +22,9 @@ namespace Vidly.Controllers
         {
             _context.Dispose();
         }
+        #endregion
 
+        #region Index & Details Actions
         // GET: Customers
         public ActionResult Index()
         {
@@ -36,5 +41,36 @@ namespace Vidly.Controllers
 
             return View(customer);
         }
+        #endregion
+
+        #region Add Action
+        public ActionResult Add()
+        {
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View(viewModel);
+        }
+        #endregion
+
+        #region Save Action
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException e )
+            {
+
+                throw;
+            }
+           
+            return RedirectToAction("Index", "Customers");
+        }
+        #endregion
     }
 }
