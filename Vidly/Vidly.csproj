@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201902270529259_AddMembershipIdTOCustomers.Designer.cs">
       <DependentUpon>201902270529259_AddMembershipIdTOCustomers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902270551435_ChangeLengthAndNullableOfNameOfCustomers.cs" />
+    <Compile Include="Migrations\201902270551435_ChangeLengthAndNullableOfNameOfCustomers.Designer.cs">
+      <DependentUpon>201902270551435_ChangeLengthAndNullableOfNameOfCustomers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -294,7 +298,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
-    <Content Include="Views\Customers\Add.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902270529259_AddMembershipIdTOCustomers.resx">
       <DependentUpon>201902270529259_AddMembershipIdTOCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902270551435_ChangeLengthAndNullableOfNameOfCustomers.resx">
+      <DependentUpon>201902270551435_ChangeLengthAndNullableOfNameOfCustomers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

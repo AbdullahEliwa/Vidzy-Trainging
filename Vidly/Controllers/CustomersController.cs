@@ -43,32 +43,47 @@ namespace Vidly.Controllers
         }
         #endregion
 
-        #region Add Action
+        #region Add & Edit & Save Actions
+
+        //Add Action
         public ActionResult Add()
         {
             var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes = _context.MembershipTypes.ToList()
             };
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
-        #endregion
 
-        #region Save Action
+        // Edit Action
+        public ActionResult Edit(int id)
+        {
+            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            if (customerInDb == null)
+                return HttpNotFound();
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customerInDb,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View("CustomerForm", viewModel);
+        }
+
+        // Save Action
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
-            try
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
+            else
             {
-                _context.SaveChanges();
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
             }
-            catch (DbEntityValidationException e )
-            {
-
-                throw;
-            }
-           
+            _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
         #endregion

@@ -15,6 +15,7 @@
             <th>Customer Name</th>
             <th>Membership Type</th>
             <th>Birthdate</th>
+            <th>Is Subscribe to new letter?</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +24,10 @@
             <td>@Model.Name</td>
             <td>@Model.MembershipType.Name</td>
             <td>@birthdate</td>
+            <td>@Model.IsSubscribedToNewsletter</td>
         </tr>
     </tbody>
 </table>
-
 @Html.ActionLink("Return to List", "Index", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Edit", "Edit", "Customers", new { Id = Model.Id }, new { @class = "btn btn-info" })
+
