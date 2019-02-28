@@ -23,5 +23,6 @@ namespace Vidly.Models
         public byte NumberInStock { get; set; }
 
         public Genre Genre { get; set; }
+        public int GenreId { get; set; }
     }
 }

@@ -4,6 +4,7 @@
 }
 
 <h2>Movies List</h2>
+@Html.ActionLink("new movie", "Add", null, new { @class="btn btn-primary"})
 
 @if (!Model.Any())
 {

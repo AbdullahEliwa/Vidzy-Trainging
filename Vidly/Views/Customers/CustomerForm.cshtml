@@ -1,10 +1,12 @@
 ﻿@model Vidly.ViewModels.CustomerFormViewModel
-
+@{ 
+    var title = Model.Customer == null ? "Add customer" : "Edit customer";
+}
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = title;
 }
 
-<h2>Add Cutomer</h2>
+<h2>@title</h2>
 @using (Html.BeginForm("Save", "Customers", FormMethod.Post))
 {
     <div class="form-group">
