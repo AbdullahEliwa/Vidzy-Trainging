@@ -41,10 +41,12 @@ namespace Vidly.Controllers
         #endregion
 
         #region Add & Edit & Save Actions
+        
         public ActionResult Add()
         {
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel()
             {
+                Id = 0,
                 Genres = _context.Genres.ToList()
             };
             return View("MovieForm", viewModel);
@@ -55,9 +57,8 @@ namespace Vidly.Controllers
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
             if (movieInDb == null)
                 return HttpNotFound();
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movieInDb)
             {
-                Movie = movieInDb,
                 Genres = _context.Genres.ToList()
             };
 
@@ -65,8 +66,18 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if(! ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+                return View("MovieForm", viewModel);
+            }
+
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == movie.Id);
             if (movieInDb == null)
             {
