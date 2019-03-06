@@ -25,11 +25,17 @@ namespace Vidly.Controllers
 
         #region Index & Deatils Actons
         // GET: Movies
-        public ActionResult Index()
+        public ViewResult Index()
         {
+            #region Old Code: Retreiving data
             // NOW i use api to retrieve data, SO i don't need this any more.
             //var movies = _context.Movies.Include(m => m.Genre).ToList();
-            return View();
+            #endregion
+
+            if (User.IsInRole(RoleName.CanManageMovie))
+                return View();
+
+            return View("ReadONlyMovieList");
         }
 
         public ActionResult Details(int? id)
@@ -42,7 +48,8 @@ namespace Vidly.Controllers
         #endregion
 
         #region Add & Edit & Save Actions
-        
+
+        [ Authorize(Roles = RoleName.CanManageMovie) ]
         public ActionResult Add()
         {
             var viewModel = new MovieFormViewModel()
@@ -53,6 +60,7 @@ namespace Vidly.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [Authorize(Roles =RoleName.CanManageMovie)]
         public ActionResult Edit(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
@@ -68,9 +76,10 @@ namespace Vidly.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles =RoleName.CanManageMovie)]
         public ActionResult Save(Movie movie)
         {
-            if(! ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var viewModel = new MovieFormViewModel(movie)
                 {

@@ -48,8 +48,12 @@ namespace Vidly.Controllers.API
         #region Create (Create New Movie)
         // POST /api/customer
         [HttpPost]
+        //[Authorize(Roles =RoleName.CanManageMovie)]
         public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
+            if (!User.IsInRole(RoleName.CanManageMovie))
+                return BadRequest();
+
             if (!ModelState.IsValid)
                 return BadRequest();
             var movie = Mapper.Map<MovieDto, Movie>(movieDto);
@@ -63,10 +67,15 @@ namespace Vidly.Controllers.API
         #region Update (Edit Movie Data)
         // PUT /api/movies/1
         [HttpPut]
+        //[Authorize(Roles =RoleName.CanManageMovie)]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
+            if (!User.IsInRole(RoleName.CanManageMovie))
+                return BadRequest();
+
             if (!ModelState.IsValid)
                 return BadRequest();
+
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
             if (movie == null)
                 return NotFound();
@@ -79,8 +88,12 @@ namespace Vidly.Controllers.API
         #region Delete (Delete Movie)
         // DELETE /api/movies/1
         [HttpDelete]
+        //[Authorize(Roles =RoleName.CanManageMovie)]
         public IHttpActionResult DeleteMovie(int id)
         {
+            if (! User.IsInRole(RoleName.CanManageMovie))
+                return BadRequest();
+
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
             if (movie is null)
                 return NotFound();

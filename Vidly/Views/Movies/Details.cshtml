@@ -1,4 +1,5 @@
-﻿@model Vidly.Models.Movie
+﻿@using Vidly.Models;
+@model Vidly.Models.Movie
 @{
     ViewBag.Title = "Details";
 }
@@ -29,4 +30,7 @@
 </table>
 
 @Html.ActionLink("Back to Movie List", "Index", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Edit", "Edit", new { id = Model.Id}, new { @class = "btn btn-primary" })
+@if (User.IsInRole(RoleName.CanManageMovie))
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+}
