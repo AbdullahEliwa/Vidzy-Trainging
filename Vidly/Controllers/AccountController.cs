@@ -152,18 +152,23 @@ namespace Vidly.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    DrivingLicense = model.DrivingLicense
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     #region Temp Code Use it to make an admin to website then delete it.
-        // Temp Code: Use it to Create New Role & Assign User to it, So make him Admin, Then Delete the Code
-            // Create New Role : CanManageMovie (Or The Admin)
+                    // Temp Code: Use it to Create New Role & Assign User to it, So make him Admin, Then Delete the Code
+                    // Create New Role : CanManageMovie (Or The Admin)
                     //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     //var roleManager = new RoleManager<IdentityRole>(roleStore);
                     //await roleManager.CreateAsync(new IdentityRole("CanManageMovie"));
 
-            // Assign User to The -CanManageMovie- Role
+                    // Assign User to The -CanManageMovie- Role
                     //await UserManager.AddToRoleAsync(user.Id, "CanManageMovie");
                     /*--------- after doing that you need to :-
                     ** Add migration to insert data to sql That contatin:
@@ -174,7 +179,7 @@ namespace Vidly.Controllers
                     ** you will have this data with you in the production database.
                     */
                     #endregion
-                    
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
