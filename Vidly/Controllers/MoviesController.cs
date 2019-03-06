@@ -27,8 +27,9 @@ namespace Vidly.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-            return View(movies);
+            // NOW i use api to retrieve data, SO i don't need this any more.
+            //var movies = _context.Movies.Include(m => m.Genre).ToList();
+            return View();
         }
 
         public ActionResult Details(int? id)
