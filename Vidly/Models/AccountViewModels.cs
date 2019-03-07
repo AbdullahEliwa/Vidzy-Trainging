@@ -11,6 +11,12 @@ namespace Vidly.Models
         public string DrivingLicense { get; set; }
 
         [Required]
+        [StringLength(15)]
+        public string Phone { get; set; }
+
+
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -73,6 +79,11 @@ namespace Vidly.Models
         [Required]
         [Display(Name = "Driving License")]
         public string DrivingLicense { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string Phone { get; set; }
+
 
 
         [Required]
