@@ -7,6 +7,7 @@ using Vidly.Models;
 using System.Data.Entity;
 using Vidly.ViewModels;
 using System.Data.Entity.Validation;
+using System.Runtime.Caching;
 
 namespace Vidly.Controllers
 {
@@ -28,6 +29,16 @@ namespace Vidly.Controllers
         // GET: Customers
         public ActionResult Index()
         {
+
+            //====================================================================
+            //This code show how to cache data, but use it only after profile your app and
+            // when found you really need to cache data over doing queries to DB
+            // if(MemoryCache.Default["Genres"] == null)
+            // {
+            //      MemoryCache.Default["Genres"] = _context.Genres.ToList();
+            //  }
+            //var genres = MemoryCache.Default["Genres"] as IEnumerable<Genre>;
+            //===================================================================
             // Now i get data from API, so i don't need to get data from here any more
             //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
             return View();
