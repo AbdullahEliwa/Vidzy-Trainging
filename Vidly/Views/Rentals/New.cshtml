@@ -90,11 +90,11 @@
                     url: "/api/NewRentals/CreateNewRental",
                     method: "post",
                     data: vm
-                }).done(function() {
-                        console.log("done");
+                }).done(function () {
+                    toastr.success("Rentals successfully recoreded.")
                     })
                     .fail(function () {
-                        console.log("fail");
+                        toastr.error("Something unexpected happened.");
                     });
             });
 
