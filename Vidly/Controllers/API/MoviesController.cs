@@ -27,10 +27,16 @@ namespace Vidly.Controllers.API
 
         #region Read (GET All Movies - GET One Movie)
         // GET /api/movies
-        public IEnumerable<MovieDto> GetMovies()
+        public IEnumerable<MovieDto> GetMovies(string qurey = null)
         {
-            return _context.Movies
+            var moviesQuery = _context.Movies
                 .Include(m => m.Genre)
+                .Where(m => m.NumberAvailable > 0);
+
+            if ( ! String.IsNullOrWhiteSpace(qurey))
+                moviesQuery = moviesQuery.Where(m => m.Name.Contains(qurey));
+
+            return moviesQuery
                 .ToList()
                 .Select(Mapper.Map<Movie, MovieDto>);
         }

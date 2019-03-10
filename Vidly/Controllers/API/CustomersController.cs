@@ -27,12 +27,19 @@ namespace Vidly.Controllers.API
 
         #region Read  (get All customers - get one customer)
         // GET /api/customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers(string qurey = null)
         {
-            return _context.Customers
-                .Include( c => c.MembershipType )
+            var customersQuery = _context.Customers
+                .Include(c => c.MembershipType);
+
+            if (!String.IsNullOrWhiteSpace(qurey))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(qurey));
+
+            var custoemrDtos = customersQuery
                 .ToList()
                 .Select(Mapper.Map<Customer, CustomerDto>);
+
+            return custoemrDtos;
         }
 
         // GET /api/customers/1
